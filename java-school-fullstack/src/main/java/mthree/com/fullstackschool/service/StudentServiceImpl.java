@@ -1,6 +1,6 @@
 package mthree.com.fullstackschool.service;
 
-import mthree.com.fullstackschool.dao.CourseDao;
+
 import mthree.com.fullstackschool.dao.StudentDao;
 import mthree.com.fullstackschool.model.Course;
 import mthree.com.fullstackschool.model.Student;
@@ -15,6 +15,8 @@ public class StudentServiceImpl implements StudentServiceInterface {
     //YOUR CODE STARTS HERE
      private StudentDao studentDao;
 
+     @Autowired
+     private CourseServiceInterface courseService;
 
      @Autowired
      public StudentServiceImpl(StudentDao studentDao){
@@ -91,13 +93,49 @@ public class StudentServiceImpl implements StudentServiceInterface {
     public void deleteStudentFromCourse(int studentId, int courseId) {
         //YOUR CODE STARTS HERE
 
+        Student student = getStudentById(studentId);
+        Course course = courseService.getCourseById(courseId);
 
+        if ("Student Not Found".equals(student.getStudentFirstName())){
+            System.out.println("Student not found");
+
+        } else if ("Course Not Found".equals(course.getCourseName())){
+            System.out.println("Course not found");
+
+        } else{
+            studentDao.deleteStudentFromCourse(studentId, courseId);
+            System.out.println("Student: " + studentId +
+                    " deleted from course: " + courseId);
+        }
 
         //YOUR CODE ENDS HERE
     }
 
     public void addStudentToCourse(int studentId, int courseId) {
         //YOUR CODE STARTS HERE
+
+        Student student = getStudentById(studentId);
+        Course course = courseService.getCourseById(courseId);
+
+        if ("Student Not Found".equals(student.getStudentFirstName())){
+            System.out.println("Student not found");
+
+        } else if ("Course Not Found".equals(course.getCourseName())){
+            System.out.println("Course not found");
+
+        } else{
+            try{
+                studentDao.addStudentToCourse(studentId, courseId);
+
+                System.out.println("Student: " + studentId +
+                        " added to course: " + courseId);
+
+            } catch (DataAccessException e){
+                System.out.println("Student: " + studentId +
+                        " already enrolled in course: " + courseId);
+
+            }
+        }
 
 
         //YOUR CODE ENDS HERE

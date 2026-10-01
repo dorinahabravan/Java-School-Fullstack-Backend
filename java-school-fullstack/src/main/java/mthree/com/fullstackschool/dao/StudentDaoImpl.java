@@ -28,7 +28,7 @@ public class StudentDaoImpl implements StudentDao {
     public Student createNewStudent(Student student) {
         //YOUR CODE STARTS HERE
 
-        final String sql = "INSERT INTO student(fName, lName) VALUES (?, ?)";
+        final String sql = "INSERT INTO student (fName, lName) VALUES (?, ?)";
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -100,7 +100,7 @@ public class StudentDaoImpl implements StudentDao {
     public void addStudentToCourse(int studentId, int courseId) {
         //YOUR CODE STARTS HERE
 
-        final String sql = "INSERT INTO course_student(student_id, course_id) VALUES (?, ?)";
+        final String sql = "INSERT INTO course_student (student_id, course_id) VALUES (?, ?)";
 
         jdbcTemplate.update(sql, studentId, courseId);
 

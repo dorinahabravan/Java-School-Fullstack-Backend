@@ -24,7 +24,7 @@ public class TeacherDaoImpl implements TeacherDao {
     public Teacher createNewTeacher(Teacher teacher) {
         //YOUR CODE STARTS HERE
 
-        final String sql = "INSERT INTO teacher(tFName, tLName, dept) VALUES (?, ?, ?)";
+        final String sql = "INSERT INTO teacher (tFName, tLName, dept) VALUES (?, ?, ?)";
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -60,7 +60,7 @@ public class TeacherDaoImpl implements TeacherDao {
     public Teacher findTeacherById(int id) {
         //YOUR CODE STARTS HERE
 
-        final String  sql = "SELECT * FROM teacher WHERE tid = ?";
+        final String sql = "SELECT * FROM teacher WHERE tid = ?";
 
         return jdbcTemplate.queryForObject(sql, new TeacherMapper(), id);
 
@@ -71,7 +71,7 @@ public class TeacherDaoImpl implements TeacherDao {
     public void updateTeacher(Teacher t) {
         //YOUR CODE STARTS HERE
 
-        final String  sql = "UPDATE teacher SET tFName = ?, tLName = ?, dept = ? WHERE tid = ?";
+        final String sql = "UPDATE teacher SET tFName = ?, tLName = ?, dept = ? WHERE tid = ?";
 
         jdbcTemplate.update(sql,
                 t.getTeacherFName(),

@@ -22,12 +22,13 @@ public class CourseDaoImpl implements CourseDao {
     public Course createNewCourse(Course course) {
         //YOUR CODE STARTS HERE
 
-        final String sql = ("INSERT INTO course(courseCode, courseDesc, teacherId) VALUES" +
-                "(?, ?, ?)");
+        final String sql = "INSERT INTO course (courseCode, courseDesc, teacherId) " +
+                "VALUES  (?, ?, ?)";
+
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.preparedStatement(
+            PreparedStatement ps = connection.prepareStatement(
                     sql, Statement.RETURN_GENERATED_KEYS);
 
             ps.setString(1, course.getCourseName());
@@ -36,8 +37,12 @@ public class CourseDaoImpl implements CourseDao {
 
             return ps;
         }, keyHolder);
+
+
+           return course;
         //YOUR CODE ENDS HERE
     }
+
 
     @Override
     public List<Course> getAllCourses() {
@@ -64,12 +69,14 @@ public class CourseDaoImpl implements CourseDao {
     public void updateCourse(Course course) {
         //YOUR CODE STARTS HERE
 
-         final String sql = "UPDATE course SET courseCode = ?, courseDesc = ?, teachId = ? WHERE" +
-                "cid = ?";
+         final String sql = "UPDATE course SET courseCode = ?, courseDesc = ?, teacherId = ? "
+                 +  "WHERE cid = ?";
+
+
          jdbcTemplate.update(sql,
                  course.getCourseName(),
-                 course.getCourseDesc,
-                 course.getTeacherId,
+                 course.getCourseDesc(),
+                 course.getTeacherId(),
                  course.getCourseId());
 
         //YOUR CODE ENDS HERE
